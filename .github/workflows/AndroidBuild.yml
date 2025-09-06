@@ -30,20 +30,14 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x gradlew
 
-      - name: Run lint
-        run: ./gradlew app:lint
-
-      - name: Show Reports
-        run: find. -name "lint-results*.html" || true
-
-      - name: Upload lint Report
-        uses: actions/upload-artifact@v4
+      - name: Run Instrumentation Tests
+        uses: ReactiveCircus/android-emulator-runner@v2
         with:
-          name: lint-report
-          path: "**/build/reports/lint-results*.html"
-
-      - name: Run Unit Test
-        run: ./gradlew test
+          api-level: 33
+          target: google_apis      # needed for emulator
+          arch: x86_64
+          profile: pixel_5
+          script: ./gradlew connectedDebugAndroidTest
 
       # Runs a single command using the runners shell
       - name: Build with Gradle
