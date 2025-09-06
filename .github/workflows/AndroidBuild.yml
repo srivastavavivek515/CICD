@@ -28,7 +28,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Change wrapper permissions
-        run: chmod +x ./gradle
+        run: chmod +x gradlew
 
       - name: Run lint
         run: ./gradlew app:lint
